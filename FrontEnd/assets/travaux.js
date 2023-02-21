@@ -77,24 +77,49 @@ async function list_category() {
             if (state == 200) {
                 let filters = document.querySelector('.filters');
                 let filters_tous = filters.querySelector('li');
+
+                // Ajout d'un évenement "click" sur le bouton "tous" avec appel de la fonction "click_tous"
                 filters_tous.addEventListener('click', click_tous);
+
                 for (let i in json) {
 
                     let elementFilters = document.createElement('li');
                     elementFilters.textContent = json[i].name;
                     elementFilters.setAttribute('data.id', json[i].id);
+
+                    // Ajout d'un évenement "click" sur les boutons "catégories" avec appel de la fonction "click_filters"
                     elementFilters.addEventListener('click', click_filters);
+
                     filters.appendChild(elementFilters);
                 }
             }
         })
 }
-async function click_filters(e) {
-    category_id = e.target.getAttribute('data.id');
-    await list_works(category_id);
+
+// Cette fonction met en blanc tous les boutons sauf le bouton sur lequel on a cliqué
+async function init_filters(e) {
+    let filters = document.querySelector('.filters');
+
+    let children = filters.childNodes;
+
+    for (const node of children) {
+        node.className = 'li';
+    }
+
+    // Le bouton sur lequel on a cliqué aura le style de la classe 'li2'
+    e.target.className = 'li2';
 }
 
+// Traitement du "click" pour les boutons "catégories"
+async function click_filters(e) {
+    category_id = e.target.getAttribute('data.id');
+    init_filters(e);
+    await list_works(category_id);
+}
+// Traitement du "click" pour le bouton "tous"
 async function click_tous(e) {
+    init_filters(e);
+
     await list_works();
 }
 
