@@ -178,18 +178,18 @@ h2 {
 	font-family: 'Syne';
 	font-weight: 700;
 	font-size: 30px;
-	color: #1D6154
+	color: #1D6154;
+	margin-top: 120px;
 }
 
 nav ul {
 	display: flex;
 	align-items: center;
 	list-style-type: none;
-
 }
 
 nav li {
-	padding: 0 10px;
+	padding: 0 20px;
 	font-size: 1.2em;
 }
 
@@ -200,6 +200,7 @@ li:hover {
 #introduction {
 	display: flex;
 	align-items: center;
+	margin-top: 120px;
 }
 
 #introduction figure {
@@ -213,10 +214,13 @@ li:hover {
 }
 
 #introduction article {
-	flex: 1
+	flex: 1;
+	height: 192px;
+	line-height: 16px;
 }
 
 #introduction h2 {
+	margin-top: 0;
 	margin-bottom: 1em;
 }
 
@@ -227,6 +231,7 @@ li:hover {
 #portfolio h2 {
 	text-align: center;
 	margin-bottom: 1em;
+	margin-top: 120px;
 }
 
 /* Ajout des filtres */
@@ -294,18 +299,22 @@ li:hover {
 }
 
 #contact h2 {
+	margin-top: 80px;
 	margin-bottom: 20px;
 }
 
 #contact form {
 	text-align: left;
 	margin-top: 30px;
+	margin-left: 90px;
+	margin-right: 90px;
 	display: flex;
 	flex-direction: column;
 }
 
 #contact input {
-	height: 50px;
+	width: 379px;
+	height: 51px;
 	font-size: 1.2em;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
@@ -316,8 +325,33 @@ li:hover {
 }
 
 #contact textarea {
+	width: 379px;
+	height: 174px;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+input[type="submit"] {
+	font-family: 'Syne';
+	font-weight: 700;
+	color: white;
+	background-color: #1D6154;
+	margin: 2em auto;
+	width: 179px;
+	text-align: center;
+	border-radius: 60px;
+	cursor: pointer;
+}
+
+footer nav ul {
+	height: 60px;
+	display: flex;
+	justify-content: flex-end;
+	margin: 2em;
+}
+
+footer a {
+	font-size: 14px;
 }
 
 /* Mise en forme du login */
@@ -331,50 +365,35 @@ li:hover {
 	display: flex;
 	flex-direction: column;
 	text-align: left;
-	margin-right: 100px;
-	margin-left: 100px;
+	margin-top: 15px;
+	margin-right: 90px;
+	margin-left: 90px;
 }
 
 #login label {
-	margin: 32px 0 16px 0;
+	margin: 32px 0 10px 0;
 }
 
-#login input {
-	height: 40px;
-	font-size: 14px;
+input[type="email"],
+[type="password"] {
+	width: 379px;
+	height: 51px;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 
 input[type="submit"] {
-	font-family: 'Syne';
-	font-weight: 700;
-	color: white;
-	background-color: #1D6154;
-	margin: 2em auto;
-	width: 180px;
-	text-align: center;
-	border-radius: 60px;
-	cursor: pointer;
+	width: 179px;
+	height: 36px;
+	border: none;
+	font-size: 14px;
 }
 
 #login a {
-	display: block;
-	font-family: 'Work Sans';
-	font-style: normal;
-	font-weight: 500;
-	font-size: 14px;
 	line-height: 16px;
 	text-decoration-line: underline;
 }
 
 footer nav ul {
-	height: 50px;
-	display: flex;
-	justify-content: flex-end;
-	margin: 80px 0 0;
-}
-
-footer a {
-	font-size: 14px;
+	margin: 100px 0 0;
 }
