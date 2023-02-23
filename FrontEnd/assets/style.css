@@ -312,7 +312,8 @@ li:hover {
 	flex-direction: column;
 }
 
-#contact input {
+input[type="text"],
+[type="email"] {
 	width: 379px;
 	height: 51px;
 	font-size: 1.2em;
@@ -395,5 +396,9 @@ input[type="submit"] {
 }
 
 footer nav ul {
-	margin: 100px 0 0;
+	margin-right: -60px;
+	margin-left: -60px;
+	margin-bottom: 0;
+	padding-right: 50px;
+	background-color: white;
 }
