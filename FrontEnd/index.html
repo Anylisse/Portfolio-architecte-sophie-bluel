@@ -10,11 +10,22 @@
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap"
 		rel="stylesheet">
 	<meta name="description" content="">
+	<script src="https://kit.fontawesome.com/d32a75c929.js" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="./assets/style.css">
 	<script src="assets/travaux.js" defer></script>
 </head>
 
 <body>
+
+	<!-- Barre mode édition et publication des changements -->
+	<aside class="edit-mode-bar" id="admin_bar"> <!-- style="display:none"-->
+		<div class="mode-edition">
+			<i class="fa-regular fa-pen-to-square title-bar"></i>
+			<p class="title-bar">Mode édition</p>
+		</div>
+		<button class="edit-button">publier les changements</button>
+	</aside>
+
 	<header>
 		<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 		<nav>
@@ -26,12 +37,26 @@
 			</ul>
 		</nav>
 	</header>
+
 	<main>
 		<section id="introduction">
 			<figure>
 				<img src="./assets/images/sophie-bluel.png" alt="">
+
+				<!-- Mode édition bouton modifier photo -->
+				<div class="photo-editing"> <!-- style="display:none" -->
+					<i class="fa-regular fa-pen-to-square"></i>
+					<a href="#">modifier</a>
+				</div>
 			</figure>
+
 			<article>
+				<!-- Mode édition bouton modifier texte -->
+				<div class="text-content"> <!-- style="display:none" -->
+					<i class="fa-regular fa-pen-to-square"></i>
+					<a href="#">modifier</a>
+				</div>
+
 				<h2>Designer d'espace</h2>
 				<p>Je raconte votre histoire, je valorise vos idées. Je vous accompagne de la conception à la livraison
 					finale du chantier.</p>
@@ -42,8 +67,17 @@
 					décorateur(trice)</p>
 			</article>
 		</section>
+
 		<section id="portfolio">
-			<h2>Mes Projets</h2>
+			<div class="title-project-modification">
+				<h2>Mes projets</h2>
+				<!-- Mode édition bouton modifier projets -->
+				<div class="project-modification"> <!-- style="display:none" -->
+					<i class="fa-regular fa-pen-to-square"></i>
+					<a href="#">modifier</a>
+				</div>
+			</div>
+			<!-- Boutons filtres -->
 			<ul class="filters">
 				<li class="li2">Tous</li>
 			</ul>
