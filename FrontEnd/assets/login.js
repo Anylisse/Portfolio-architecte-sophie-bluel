@@ -20,16 +20,12 @@ async function logIn() {
 
     const result = await response.json();
 
-    if (result.message === "Utilisateur non trouvé") {
-        alert(result.message);
-        return;
-
-    } else if (result.error) {
-
+    /** Générer un message d'erreur si la connexion échoue **/
+    if (result.message === "user not found" || result.error) {
         alert("Erreur dans l’identifiant ou le mot de passe");
         return;
 
-    } else {
+        } else {
 
         window.localStorage.setItem("userId", result.userId);
         window.localStorage.setItem("token", result.token);
