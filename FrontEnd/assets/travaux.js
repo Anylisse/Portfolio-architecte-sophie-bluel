@@ -133,3 +133,44 @@ function dropElement(parent_element) {
         parent_element.removeChild(parent_element.lastChild);
     }
 }
+
+// Récupération du token
+const recupToken = window.localStorage.getItem("token");
+
+// Pouvoir se déconnecter 
+function seDeconnecter(e) {
+
+    // Vider le localStorage
+    localStorage.clear();
+
+    // Retourner à la page d'accueil
+    window.location.replace = "index.html";
+}
+
+// Afficher les éléments du mode édition si administrateur
+if (recupToken !== null) {
+
+    // Remplacement de "login" par "logout"
+    let loginAdmin = document.querySelector(".login-logout");
+    loginAdmin.innerHTML = " "
+    loginAdmin.innerText = "logout";
+
+    // Pour pouvoir revenir à la page d'accueil
+    loginAdmin.addEventListener('click', seDeconnecter);
+
+    // Afficher la barre mode édition et publication des changements 
+    const editmodebar = document.querySelector(".edit-mode-bar");
+    editmodebar.style.display = null;
+
+    // Afficher les boutons modifier
+    const photoediting = document.querySelector(".photo-editing");
+    photoediting.style.display = null;
+    const textcontent = document.querySelector(".text-content");
+    textcontent.style.display = null;
+    const projectmodification = document.querySelector(".project-modification");
+    projectmodification.style.display = null;
+
+    // Faire disparaître les boutons filtre 
+    const filters = document.querySelector(".filters");
+    filters.innerHTML = "";
+}
