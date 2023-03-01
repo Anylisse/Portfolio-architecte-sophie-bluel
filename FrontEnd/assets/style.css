@@ -179,7 +179,6 @@ h2 {
 	font-weight: 700;
 	font-size: 30px;
 	color: #1D6154;
-	margin-top: 120px;
 }
 
 nav ul {
@@ -193,8 +192,13 @@ nav li {
 	font-size: 1.2em;
 }
 
-li:hover {
+li a:hover {
 	color: #B1663C;
+}
+
+li a img {
+	width: auto;
+	height: 19px;
 }
 
 #introduction {
@@ -221,7 +225,6 @@ li:hover {
 }
 
 #introduction h2 {
-	margin-top: 0;
 	margin-bottom: 1em;
 }
 
@@ -292,6 +295,7 @@ li:hover {
 #contact {
 	width: 50%;
 	margin: auto;
+	padding-bottom: 70px;
 }
 
 #contact>* {
@@ -361,6 +365,7 @@ footer a {
 	width: 50%;
 	text-align: center;
 	margin: auto;
+	padding-bottom: 300px;
 }
 
 #login form {
