@@ -29,7 +29,7 @@ async function list_works(category_id) {
             // On vérifie que le serveur a bien répondu
             if (state == 200) {
 
-                //Let portfolio = <section id="portfolio">
+                // Let portfolio = <section id="portfolio">
                 let portfolio = document.querySelector('.gallery');
 
                 // On efface tous les travaux pour avoir une page blanche
@@ -174,3 +174,56 @@ if (recupToken !== null) {
     const filters = document.querySelector(".filters");
     filters.innerHTML = "";
 }
+
+let modal = null;
+
+// Fonction pour faire apparaître les projets dans la modale
+
+
+// Ouvrir la modale
+const openModal = function (e) {
+    e.preventDefault();
+    const target = document.querySelector(e.target.getAttribute('href'));
+    target.style.display = null;
+    target.removeAttribute('aria-hidden');
+    target.setAttribute('aria-modal', 'true');
+    modal = target;
+
+    // Fermer la modale grâce à la croix
+    const close = document.querySelector(".icon");
+    close.addEventListener('click', closeModal);
+
+    // Fermer la modale au clic à l'extérieur
+    const fermerModaleExterieur = document.querySelector('.modal-wrapper');
+    fermerModaleExterieur.addEventListener('click', Propagation);
+    document.querySelector('#photogallerymodal').addEventListener('click', closeModal);
+}
+
+//Vérifier le clic à l'extérieur
+// window.addEventListener('click', e => {
+//     console.log(e.target)
+// });
+
+// Fermer la modale
+const closeModal = function (e) {
+    if (modal === null) return
+    e.preventDefault();
+    const bottom = document.querySelector('html');
+    bottom.style.background = "white";
+    modal.style.display = "none";
+    modal.setAttribute('aria-hidden', 'true');
+    modal.removeAttribute('aria-modal');
+    modal.removeEventListener('click', closeModal);
+    modal.querySelector('.delete-button-modal').removeEventListener('click', closeModal);
+    modal = null;
+}
+
+// Fonction pour ouvrir la modale avec un addEventListener
+document.querySelectorAll('.open-modal').forEach(a => {
+    a.addEventListener('click', openModal)
+});
+
+// Arrêter la propagation de la modale
+function Propagation(e) {
+    e.stopPropagation()
+};
