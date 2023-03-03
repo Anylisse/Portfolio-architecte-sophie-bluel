@@ -78,19 +78,23 @@ async function list_category() {
                 let filters = document.querySelector('.filters');
                 let filters_tous = filters.querySelector('li');
 
-                // Ajout d'un évenement "click" sur le bouton "tous" avec appel de la fonction "click_tous"
-                filters_tous.addEventListener('click', click_tous);
+                // Si on est logué, les boutons filtres n'existent pas
+                if (filters_tous) {
 
-                for (let i in json) {
+                    // Ajout d'un évenement "click" sur le bouton "tous" avec appel de la fonction "click_tous"
+                    filters_tous.addEventListener('click', click_tous);
 
-                    let elementFilters = document.createElement('li');
-                    elementFilters.textContent = json[i].name;
-                    elementFilters.setAttribute('data.id', json[i].id);
+                    for (let i in json) {
 
-                    // Ajout d'un évenement "click" sur les boutons "catégories" avec appel de la fonction "click_filters"
-                    elementFilters.addEventListener('click', click_filters);
+                        let elementFilters = document.createElement('li');
+                        elementFilters.textContent = json[i].name;
+                        elementFilters.setAttribute('data.id', json[i].id);
 
-                    filters.appendChild(elementFilters);
+                        // Ajout d'un évenement "click" sur les boutons "catégories" avec appel de la fonction "click_filters"
+                        elementFilters.addEventListener('click', click_filters);
+
+                        filters.appendChild(elementFilters);
+                    }
                 }
             }
         })
@@ -178,7 +182,56 @@ if (recupToken !== null) {
 let modal = null;
 
 // Fonction pour faire apparaître les projets dans la modale
+async function list_pictures() {
 
+    await fetch(server_url + "works", request_options)
+        .then(function (response) {
+            state = response.status;
+            return response.json();
+        })
+        .then(function (json) {
+            console.log(json)
+            if (state == 200) {
+                let modalGallery = document.querySelector('.modal-gallery');
+
+                dropElement(modalGallery);
+
+                for (let i in json) {
+
+                    // Cadre qui contient l'image, le texte "éditer" et la poubelle
+                    let figurePicture = document.createElement('figure-picture');
+                    figurePicture.setAttribute('class', 'figure-picture');
+
+                    let img = document.createElement('img');
+                    img.setAttribute('src', json[i].imageUrl);
+                    img.setAttribute('alt', json[i].title);
+                    img.setAttribute('class', 'picture');
+                    figurePicture.appendChild(img);
+
+                    let a = document.createElement('a');
+                    a.setAttribute('href', '#');
+                    i = document.createElement('i');
+                    i.setAttribute('class', 'fa-solid fa-trash-can');
+                    i.setAttribute('id', 'trash-can');
+                    a.appendChild(i);
+                    figurePicture.appendChild(a);
+
+                    // Pour que le texte "éditer" soit sous l'image
+                    let br = document.createElement('br');
+                    figurePicture.appendChild(br);
+
+                    let textEdit = document.createElement('a');
+                    textEdit.setAttribute('href', '#edit');
+                    textEdit.setAttribute('class', 'text-edit');
+                    textEdit.textContent = 'éditer';
+                    figurePicture.appendChild(textEdit);
+
+                    modalGallery.appendChild(figurePicture);
+
+                }
+            }
+        })
+}
 
 // Ouvrir la modale
 const openModal = function (e) {
@@ -197,6 +250,8 @@ const openModal = function (e) {
     const fermerModaleExterieur = document.querySelector('.modal-wrapper');
     fermerModaleExterieur.addEventListener('click', Propagation);
     document.querySelector('#photogallerymodal').addEventListener('click', closeModal);
+
+    list_pictures();
 }
 
 //Vérifier le clic à l'extérieur
