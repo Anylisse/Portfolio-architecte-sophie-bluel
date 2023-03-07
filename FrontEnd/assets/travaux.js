@@ -1,3 +1,8 @@
+let modalGallery = document.querySelector('.modal-gallery');
+
+// Let portfolio = <section id="portfolio">
+let portfolio = document.querySelector('.gallery');
+
 // Paramètres d'appel à l'API
 let server_url = "http://localhost:5678/api/";
 let state = 0;
@@ -29,11 +34,10 @@ async function list_works(category_id) {
             // On vérifie que le serveur a bien répondu
             if (state == 200) {
 
-                // Let portfolio = <section id="portfolio">
-                let portfolio = document.querySelector('.gallery');
-
                 // On efface tous les travaux pour avoir une page blanche
                 dropElement(portfolio);
+
+                dropElement(modalGallery);
 
                 // On parcours le tableau de works renvoyé par l'API
                 for (let i in json) {
@@ -57,6 +61,35 @@ async function list_works(category_id) {
 
                         console.log(portfolio)
                         portfolio.appendChild(figure)
+
+                        // Cadre qui contient l'image, la poubelle et le texte "éditer"
+                        let figurePicture = document.createElement('figure');
+                        figurePicture.setAttribute('class', 'figure-picture');
+
+                        let imgM = document.createElement('img');
+                        imgM.setAttribute('src', json[i].imageUrl);
+                        imgM.setAttribute('alt', json[i].title);
+                        imgM.setAttribute('class', 'picture');
+                        figurePicture.appendChild(imgM);
+
+                        let a = document.createElement('a');
+                        a.setAttribute('href', '#');
+                        i = document.createElement('i');
+                        i.setAttribute('class', 'fa-solid fa-trash-can');
+                        i.setAttribute('id', 'trash-can');
+                        a.appendChild(i);
+                        figurePicture.appendChild(a);
+
+                        // Pour que le texte "éditer" soit sous l'image
+                        let br = document.createElement('br');
+                        figurePicture.appendChild(br);
+
+                        let textEdit = document.createElement('text');
+                        textEdit.setAttribute('class', 'text-edit');
+                        textEdit.innerText = "éditer";
+                        figurePicture.appendChild(textEdit);
+
+                        modalGallery.appendChild(figurePicture);
 
                     }
                 }
@@ -143,12 +176,13 @@ const recupToken = window.localStorage.getItem("token");
 
 // Pouvoir se déconnecter 
 function seDeconnecter(e) {
+    e.preventDefault();
 
     // Vider le localStorage
     localStorage.clear();
 
     // Retourner à la page d'accueil
-    window.location.replace = "index.html";
+    document.location.href = "index.html";
 }
 
 // Afficher les éléments du mode édition si administrateur
@@ -181,58 +215,6 @@ if (recupToken !== null) {
 
 let modal = null;
 
-// Fonction pour faire apparaître les projets dans la modale
-async function list_pictures() {
-
-    await fetch(server_url + "works", request_options)
-        .then(function (response) {
-            state = response.status;
-            return response.json();
-        })
-        .then(function (json) {
-            console.log(json)
-            if (state == 200) {
-                let modalGallery = document.querySelector('.modal-gallery');
-
-                dropElement(modalGallery);
-
-                for (let i in json) {
-
-                    // Cadre qui contient l'image, le texte "éditer" et la poubelle
-                    let figurePicture = document.createElement('figure-picture');
-                    figurePicture.setAttribute('class', 'figure-picture');
-
-                    let img = document.createElement('img');
-                    img.setAttribute('src', json[i].imageUrl);
-                    img.setAttribute('alt', json[i].title);
-                    img.setAttribute('class', 'picture');
-                    figurePicture.appendChild(img);
-
-                    let a = document.createElement('a');
-                    a.setAttribute('href', '#');
-                    i = document.createElement('i');
-                    i.setAttribute('class', 'fa-solid fa-trash-can');
-                    i.setAttribute('id', 'trash-can');
-                    a.appendChild(i);
-                    figurePicture.appendChild(a);
-
-                    // Pour que le texte "éditer" soit sous l'image
-                    let br = document.createElement('br');
-                    figurePicture.appendChild(br);
-
-                    let textEdit = document.createElement('a');
-                    textEdit.setAttribute('href', '#edit');
-                    textEdit.setAttribute('class', 'text-edit');
-                    textEdit.textContent = 'éditer';
-                    figurePicture.appendChild(textEdit);
-
-                    modalGallery.appendChild(figurePicture);
-
-                }
-            }
-        })
-}
-
 // Ouvrir la modale
 const openModal = function (e) {
     e.preventDefault();
@@ -251,13 +233,8 @@ const openModal = function (e) {
     fermerModaleExterieur.addEventListener('click', Propagation);
     document.querySelector('#photogallerymodal').addEventListener('click', closeModal);
 
-    list_pictures();
+    list_works();
 }
-
-//Vérifier le clic à l'extérieur
-// window.addEventListener('click', e => {
-//     console.log(e.target)
-// });
 
 // Fermer la modale
 const closeModal = function (e) {
