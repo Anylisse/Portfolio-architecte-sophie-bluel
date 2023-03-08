@@ -13,11 +13,26 @@ let request_options = {
     }
 };
 
+// Fonction principale du projet (appelée en premier)
 main();
 
+// Déclaration de la fonction main
 async function main() {
     await list_works();
     await list_category();
+}
+
+/* Cette fonction permet de créer un header avec la méthode (DELETE ou POST) et de passer 
+le token en autorisation */
+function request_token(method_) {
+    let request = {
+        method: method_,
+        headers: {
+            'content-type': 'application/json',
+            'Authorization': 'Bearer ' + recupToken
+        }
+    };
+    return request;
 }
 
 // Fonction qui permet de charger les travaux à partir du Backend
@@ -48,6 +63,9 @@ async function list_works(category_id) {
                         // On crée la figure 
                         let figure = document.createElement('figure');
 
+                        // On va supprimer la figure, on lui donne un id
+                        figure.setAttribute('id', 'figure_' + json[i].id);
+
                         // On crée l'image pour cette figure
                         let img = document.createElement('img');
                         img.setAttribute('src', json[i].imageUrl);
@@ -66,6 +84,9 @@ async function list_works(category_id) {
                         let figurePicture = document.createElement('figure');
                         figurePicture.setAttribute('class', 'figure-picture');
 
+                        // Pour supprimer la figure miniature
+                        figurePicture.setAttribute('id', 'figure_picture_' + json[i].id);
+
                         let imgM = document.createElement('img');
                         imgM.setAttribute('src', json[i].imageUrl);
                         imgM.setAttribute('alt', json[i].title);
@@ -74,9 +95,18 @@ async function list_works(category_id) {
 
                         let a = document.createElement('a');
                         a.setAttribute('href', '#');
+
+                        /* On ajoute un id pour faciliter la suppression dynamique, on met l'id 
+                        sur le parent de i car i a déjà un id */
+                        a.setAttribute('id', json[i].id);
                         i = document.createElement('i');
                         i.setAttribute('class', 'fa-solid fa-trash-can');
+
+                        // On utilise un id car on ne peut pas rechercher par class
                         i.setAttribute('id', 'trash-can');
+
+                        // On intercepte le click sur la poubelle pour appeler la fonction delete_work
+                        i.addEventListener('click', delete_work);
                         a.appendChild(i);
                         figurePicture.appendChild(a);
 
@@ -114,7 +144,8 @@ async function list_category() {
                 // Si on est logué, les boutons filtres n'existent pas
                 if (filters_tous) {
 
-                    // Ajout d'un évenement "click" sur le bouton "tous" avec appel de la fonction "click_tous"
+                    /* Ajout d'un évenement "click" sur le bouton "tous" 
+                    avec appel de la fonction "click_tous" */
                     filters_tous.addEventListener('click', click_tous);
 
                     for (let i in json) {
@@ -123,7 +154,8 @@ async function list_category() {
                         elementFilters.textContent = json[i].name;
                         elementFilters.setAttribute('data.id', json[i].id);
 
-                        // Ajout d'un évenement "click" sur les boutons "catégories" avec appel de la fonction "click_filters"
+                        /* Ajout d'un évenement "click" sur les boutons "catégories" 
+                        avec appel de la fonction "click_filters" */
                         elementFilters.addEventListener('click', click_filters);
 
                         filters.appendChild(elementFilters);
@@ -255,7 +287,52 @@ document.querySelectorAll('.open-modal').forEach(a => {
     a.addEventListener('click', openModal)
 });
 
+document.querySelectorAll('.add-modal-button').forEach(a => {
+    a.addEventListener('click', openModal)
+});
+
 // Arrêter la propagation de la modale
 function Propagation(e) {
     e.stopPropagation()
 };
+
+// Suppression d'un travail
+async function delete_work(e) {
+
+    idWork = e.target.parentNode.getAttribute('id');
+
+    await fetch(server_url + "works/" + idWork, request_token("DELETE"))
+        .then(function (response) {
+            state = response.status;
+            return response; // Si l'état de la réponse est 200, on ne reçoit pas de json en réponse
+        })
+        .then(function (json) {
+            console.log(json)
+
+            switch (state) {
+
+                case 200, 204:
+
+                    // On efface la figure miniature
+                    let figure_miniature = document.getElementById('figure_picture_' + idWork);
+                    figure_miniature.parentNode.removeChild(figure_miniature);
+
+                    // On efface la figure de la page html
+                    let figure = document.getElementById('figure_' + idWork);
+                    figure.parentNode.removeChild(figure);
+                    break;
+
+                case 401:
+
+                    // Non autorisé
+                    alert("Vous n'êtes pas autorisé à supprimer ce travail");
+                    break;
+
+                case 500:
+
+                    // Erreur serveur
+                    alert("Une erreur serveur vient de se produire, vérifier la connexion");
+                    break;
+            }
+        })
+}
