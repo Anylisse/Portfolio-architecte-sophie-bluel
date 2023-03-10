@@ -246,8 +246,50 @@ if (recupToken !== null) {
 }
 
 let modal = null;
+let modal2 = null;
 
-// Ouvrir la modale
+// Ouvrir la modale editwork
+const openModal2 = function (e) {
+    e.preventDefault();
+    // On a mit la target dan l'id du bouton
+    const target = document.querySelector(e.target.getAttribute('id'));
+    target.style.display = null;
+    target.removeAttribute('aria-hidden');
+    target.setAttribute('aria-modal', 'true');
+    modal2 = target;
+
+    // Fermer la modale grâce à la croix
+    const close = document.querySelector(".icon");
+    close.addEventListener('click', closeModal2);
+
+    // On empêche la fermeture lorsque l'on clique sur le nom du travail
+    editText = document.getElementById('title-project');
+    editText.addEventListener('click', propagation);
+
+    // on empêche la fermeture lorsque l'on clique sur la catégorie
+    comboBox = document.getElementById('category-project');
+    comboBox.addEventListener('click', propagation);
+
+    // Fermer la modale au clic à l'extérieur
+    const closeOuterModal = document.querySelector('.modal-wrapper');
+    closeOuterModal.addEventListener('click', propagation);
+    document.querySelector('#editworkmodal').addEventListener('click', closeModal2);
+}
+
+// Fermer la modale editwork
+const closeModal2 = function (e) {
+    if (modal2 === null) return
+    e.preventDefault();
+    const bottom = document.querySelector('html');
+    bottom.style.background = "white";
+    modal2.style.display = "none";
+    modal2.setAttribute('aria-hidden', 'true');
+    modal2.removeAttribute('aria-modal');
+    modal2.removeEventListener('click', closeModal2);
+    modal2 = null;
+}
+
+// Ouvrir la modale photogallery
 const openModal = function (e) {
     e.preventDefault();
     const target = document.querySelector(e.target.getAttribute('href'));
@@ -261,14 +303,15 @@ const openModal = function (e) {
     close.addEventListener('click', closeModal);
 
     // Fermer la modale au clic à l'extérieur
-    const fermerModaleExterieur = document.querySelector('.modal-wrapper');
-    fermerModaleExterieur.addEventListener('click', Propagation);
+    const closeOuterModal = document.querySelector('.modal-wrapper');
+    closeOuterModal.addEventListener('click', propagation);
     document.querySelector('#photogallerymodal').addEventListener('click', closeModal);
+    document.querySelector('.add-modal-button').addEventListener('click', openModal2);
 
     list_works();
 }
 
-// Fermer la modale
+// Fermer la modale photogallery
 const closeModal = function (e) {
     if (modal === null) return
     e.preventDefault();
@@ -278,7 +321,7 @@ const closeModal = function (e) {
     modal.setAttribute('aria-hidden', 'true');
     modal.removeAttribute('aria-modal');
     modal.removeEventListener('click', closeModal);
-    modal.querySelector('.delete-button-modal').removeEventListener('click', closeModal);
+    modal.querySelector('.add-modal-button').removeEventListener('click', openModal2);
     modal = null;
 }
 
@@ -287,12 +330,8 @@ document.querySelectorAll('.open-modal').forEach(a => {
     a.addEventListener('click', openModal)
 });
 
-document.querySelectorAll('.add-modal-button').forEach(a => {
-    a.addEventListener('click', openModal)
-});
-
 // Arrêter la propagation de la modale
-function Propagation(e) {
+function propagation(e) {
     e.stopPropagation()
 };
 

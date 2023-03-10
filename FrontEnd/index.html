@@ -12,7 +12,7 @@
 	<meta name="description" content="">
 	<script src="https://kit.fontawesome.com/d32a75c929.js" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="./assets/style.css">
-	<script src="assets/travaux.js" defer></script>
+	<script src="assets/index.js" defer></script>
 </head>
 
 <body>
@@ -78,7 +78,7 @@
 					<a href="#photogallerymodal" class="open-modal">modifier</a>
 				</div>
 
-				<!-- Modale -->
+				<!-- Modales -->
 				<aside id="photogallerymodal" class="modal" aria-hidden="true" role="dialog"
 					aria-labelledby="titlemodal" style="display:none">
 					<div class="modal-wrapper close-modal">
@@ -88,12 +88,49 @@
 						<h2 id="titlemodal">Galerie photo</h2>
 						<div class="modal-gallery"></div>
 						<div class="modal-buttons">
-							<button class="add-modal-button">Ajouter une photo</button>
+							<button class="add-modal-button" id="#editworkmodal">Ajouter une photo</button>
 							<a href="#" class="delete-modal-button">Supprimer la galerie</a>
 						</div>
 					</div>
 				</aside>
 			</div>
+
+			<aside id="editworkmodal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="titlemodal"
+				style="display:none">
+				<div class="modal-wrapper modal-upload">
+					<div class="x-close">
+						<a href="#"><i class="fa-solid fa-xmark icon"></i></a>
+					</div>
+					<div class="backtrack">
+						<a href="#"><i class="fa-solid fa-arrow-left"></i></a>
+					</div>
+					<h2 id="titlemodal">Ajout photo</h2>
+					<div class="modal-body"></div>
+
+					<form id="form-add-work">
+						<div>
+							<img id="picture-file" src="assets/icons/image.png">
+							<button class="add-picture-button">+ Ajouter photo</button>
+							<p>jpg, png : 4 mo max</p>
+						</div>
+					</form>
+
+					<section id="form-upload">
+						<label class="upload-title-form">Titre</label>
+						<input type="name" class="input" name="title-project" id="title-project" required>
+
+						<label for="category-project" class="upload-title-form">Catégorie</label>
+						<select name="categories" class="input" id="category-project" required>
+							<option value=""></option>
+							<option value="Objets">Objets</option>
+							<option value="Appartements">Appartements</option>
+							<option value="Hôtels">Hôtels & Appartements</option>
+						</select>
+					</section>
+
+					<input type="submit2" value="Valider" class="style-input-modal">
+				</div>
+			</aside>
 
 			<!-- Boutons filtres -->
 			<ul class="filters">
