@@ -97,9 +97,9 @@
 
 			<aside id="editworkmodal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="titlemodal"
 				style="display:none">
-				<div class="modal-wrapper modal-upload">
+				<div class="modal-wrapper modal-upload" id="div-modal">
 					<div class="x-close">
-						<a href="#"><i class="fa-solid fa-xmark icon"></i></a>
+						<a href="#"><i id="close-modal2" class="fa-solid fa-xmark icon"></i></a>
 					</div>
 					<div class="backtrack">
 						<a href="#"><i class="fa-solid fa-arrow-left"></i></a>
@@ -113,22 +113,22 @@
 							<button class="add-picture-button">+ Ajouter photo</button>
 							<p>jpg, png : 4 mo max</p>
 						</div>
+
+						<section id="form-upload">
+							<label class="upload-title-form">Titre</label>
+							<input type="name" class="input" name="title-project" id="title-project" required>
+
+							<label for="category-project" class="upload-title-form">Catégorie</label>
+							<select name="categories" class="input" id="category-project" required>
+								<option value=""></option>
+								<option value="Objets">Objets</option>
+								<option value="Appartements">Appartements</option>
+								<option value="Hôtels">Hôtels & Appartements</option>
+							</select>
+						</section>
+
+						<input type="submit2" value="Valider" class="style-input-modal">
 					</form>
-
-					<section id="form-upload">
-						<label class="upload-title-form">Titre</label>
-						<input type="name" class="input" name="title-project" id="title-project" required>
-
-						<label for="category-project" class="upload-title-form">Catégorie</label>
-						<select name="categories" class="input" id="category-project" required>
-							<option value=""></option>
-							<option value="Objets">Objets</option>
-							<option value="Appartements">Appartements</option>
-							<option value="Hôtels">Hôtels & Appartements</option>
-						</select>
-					</section>
-
-					<input type="submit2" value="Valider" class="style-input-modal">
 				</div>
 			</aside>
 

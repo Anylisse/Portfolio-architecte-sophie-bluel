@@ -1,3 +1,4 @@
+DEBUG = false;
 let modalGallery = document.querySelector('.modal-gallery');
 
 // Let portfolio = <section id="portfolio">
@@ -44,7 +45,7 @@ async function list_works(category_id) {
             return response.json();
         })
         .then(function (json) {
-            console.log(json)
+            //console.log(json)
 
             // On vérifie que le serveur a bien répondu
             if (state == 200) {
@@ -77,7 +78,7 @@ async function list_works(category_id) {
                         figcaption.textContent = json[i].title;
                         figure.appendChild(figcaption);
 
-                        console.log(portfolio)
+                        //console.log(portfolio)
                         portfolio.appendChild(figure)
 
                         // Cadre qui contient l'image, la poubelle et le texte "éditer"
@@ -136,7 +137,7 @@ async function list_category() {
             return response.json();
         })
         .then(function (json) {
-            console.log(json)
+            //console.log(json)
             if (state == 200) {
                 let filters = document.querySelector('.filters');
                 let filters_tous = filters.querySelector('li');
@@ -251,7 +252,8 @@ let modal2 = null;
 // Ouvrir la modale editwork
 const openModal2 = function (e) {
     e.preventDefault();
-    // On a mit la target dan l'id du bouton
+
+    // On a mit la target dans l'id du bouton
     const target = document.querySelector(e.target.getAttribute('id'));
     target.style.display = null;
     target.removeAttribute('aria-hidden');
@@ -259,16 +261,16 @@ const openModal2 = function (e) {
     modal2 = target;
 
     // Fermer la modale grâce à la croix
-    const close = document.querySelector(".icon");
+    const close = document.getElementById('close-modal2');
     close.addEventListener('click', closeModal2);
 
-    // On empêche la fermeture lorsque l'on clique sur le nom du travail
-    editText = document.getElementById('title-project');
-    editText.addEventListener('click', propagation);
+    // Empêcher de fermer quand on clique sur le formulaire
+    form = document.getElementById('div-modal');
+    form.addEventListener('click', propagation);
 
-    // on empêche la fermeture lorsque l'on clique sur la catégorie
-    comboBox = document.getElementById('category-project');
-    comboBox.addEventListener('click', propagation);
+    // Flèche de retour arrière
+    backtrack = document.querySelector('.backtrack');
+    backtrack.addEventListener('click', goBack);
 
     // Fermer la modale au clic à l'extérieur
     const closeOuterModal = document.querySelector('.modal-wrapper');
@@ -276,8 +278,17 @@ const openModal2 = function (e) {
     document.querySelector('#editworkmodal').addEventListener('click', closeModal2);
 }
 
-// Fermer la modale editwork
+// Fermer la modale editwork et ferme également la modale photogallery
 const closeModal2 = function (e) {
+
+    if (modal != null) {
+        closeModal(e)
+    }
+    goBack(e);
+}
+
+// Fermer la modale editwork (retour arrière au click de la flèche)
+const goBack = function (e) {
     if (modal2 === null) return
     e.preventDefault();
     const bottom = document.querySelector('html');
@@ -346,7 +357,7 @@ async function delete_work(e) {
             return response; // Si l'état de la réponse est 200, on ne reçoit pas de json en réponse
         })
         .then(function (json) {
-            console.log(json)
+            //console.log(json)
 
             switch (state) {
 
