@@ -616,21 +616,8 @@ input[type="submit"] {
 	padding-bottom: 30px;
 }
 
-.style-input-modal {
-	display: block;
-	text-align: center;
-	font-family: 'Syne';
-	font-weight: 700;
-	font-size: 14px;
-	color: white;
-	width: 237px;
-	height: 36px;
+#style-input-modal {
 	background: #A7A7A7;
-	border: none;
-	border-radius: 60px;
-	margin: auto;
-	margin-top: 30px;
-	cursor: pointer;
 }
 
 #title-project,

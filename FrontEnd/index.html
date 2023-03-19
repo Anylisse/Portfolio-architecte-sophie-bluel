@@ -111,7 +111,7 @@
 						<div>
 							<img id="picture-file" src="assets/icons/image.png">
 							<button class="add-picture-button">+ Ajouter photo</button>
-							<p>jpg, png : 4 mo max</p>
+							<p id="picture-info">jpg, png : 4 mo max</p>
 						</div>
 
 						<section id="form-upload">
@@ -120,14 +120,13 @@
 
 							<label for="category-project" class="upload-title-form">Catégorie</label>
 							<select name="categories" class="input" id="category-project" required>
-								<option value=""></option>
-								<option value="Objets">Objets</option>
-								<option value="Appartements">Appartements</option>
-								<option value="Hôtels">Hôtels & Appartements</option>
+								<option value="0">Objets</option>
+								<option value="1">Appartements</option>
+								<option value="2">Hôtels & Restaurants</option>
 							</select>
 						</section>
 
-						<input type="submit2" value="Valider" class="style-input-modal">
+						<input type="submit" value="Valider" id="style-input-modal">
 					</form>
 				</div>
 			</aside>

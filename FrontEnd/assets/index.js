@@ -139,6 +139,8 @@ async function list_category() {
         .then(function (json) {
             //console.log(json)
             if (state == 200) {
+
+                // On traite les boutons catégories
                 let filters = document.querySelector('.filters');
                 let filters_tous = filters.querySelector('li');
 
@@ -160,6 +162,23 @@ async function list_category() {
                         elementFilters.addEventListener('click', click_filters);
 
                         filters.appendChild(elementFilters);
+                    }
+                }
+
+                // On traite la combobox catégories dans la fenêtre modale de saisie d'un travail
+                // On rempli la combobox avec les données du json list des catégories
+                let combo_cat = document.querySelector('#category-project');
+
+                // on efface ce qui est en dur dans la liste combobox
+                dropElement(combo_cat);
+
+                if (combo_cat) {
+
+                    for (let i in json) {
+                        option = document.createElement('option');
+                        option.setAttribute('value', json[i].id);
+                        option.textContent = json[i].name;
+                        combo_cat.appendChild(option);
                     }
                 }
             }
@@ -249,9 +268,43 @@ if (recupToken !== null) {
 let modal = null;
 let modal2 = null;
 
+// Cette fonction permet de réinitialiser l'écran modale de saisie d'un travail
+function FillModalWorks() {
+
+    // On vide l'écran en mode nouveau travail
+    const picture = document.getElementById('picture');
+    const pict_file = document.getElementById('picture-file');
+    const title = document.getElementById('title-project');
+    const category = document.getElementById('category-project');
+    const button_add = document.querySelector('.add-picture-button');
+    const p_info = document.getElementById('picture-info');
+
+    if (picture) {
+        picture.files.clear;
+        pict_file.src = "assets/icons/image.png";
+
+        // On remet les dimensions de départ 
+        pict_file.style['width'] = '58px';
+        pict_file.style['height'] = '46px';
+        pict_file.style['margin-top'] = '20px';
+
+        button_add.hidden = false;
+        p_info.hidden = false;
+    }
+
+    title.value = '';
+    category.value = '';
+
+    // Pour remettre le bouton en gris
+    control_saisie();
+    // Fin vidage écran nouveau travail
+}
+
 // Ouvrir la modale editwork
 const openModal2 = function (e) {
     e.preventDefault();
+
+    FillModalWorks();
 
     // On a mit la target dans l'id du bouton
     const target = document.querySelector(e.target.getAttribute('id'));
@@ -276,6 +329,86 @@ const openModal2 = function (e) {
     const closeOuterModal = document.querySelector('.modal-wrapper');
     closeOuterModal.addEventListener('click', propagation);
     document.querySelector('#editworkmodal').addEventListener('click', closeModal2);
+    const pictureButton = document.querySelector('.add-picture-button');
+    pictureButton.addEventListener('click', addWorks);
+    const pictureImg = document.getElementById('picture-file');
+    pictureImg.addEventListener('click', addWorks);
+    const buttonValidate = document.getElementById('style-input-modal');
+    buttonValidate.addEventListener('click', sendWorks);
+}
+
+/* Cette fonction permet de vérifier que tous les champs saisis dans la modale saisie d'un travail 
+sont ok */
+function control_saisie() {
+    const picture = document.getElementById('picture');
+    const title = document.getElementById('title-project').value;
+    const category = document.getElementById('category-project').value;
+
+    button_valid = document.getElementById('style-input-modal');
+
+    if ((title != "") && (category != "") && picture) {
+        button_valid.style['background'] = '#1D6154';
+    }
+    else {
+        button_valid.style['background'] = '#A7A7A7';
+    }
+
+}
+
+async function sendWorks(event) {
+    event.preventDefault();
+    const formAddWorks = document.querySelector('#form-add-work');
+
+    // Création FormData
+    let formData = new FormData(formAddWorks);
+
+    // Récupération des données saisies
+    const addPicture = document.getElementById('picture').files[0];
+    const addTitle = document.getElementById('title-project').value;
+    const addCategory = document.getElementById('category-project').value;
+
+    // Ajout de ces données dans le formData qui sera transmis au serveur par la requête works POST
+    formData.append('image', addPicture);
+    formData.append('title', addTitle);
+    formData.append('category', addCategory);
+
+    // Création du header
+    const headers = new Headers();
+    headers.append('Authorization', 'Bearer ' + recupToken);
+
+    // Accepte tout type de format
+    headers.append('Accept', '*/*');
+
+    // Création de la requête
+    const request = new Request(server_url + "works", {
+        method: 'POST',    // Méthode post
+        headers: headers,  // Remplissage du header défini plus haut
+        body: formData     // Affectation du formData à body
+    });
+
+    // Appel de la requête
+    await fetch(request)
+        .then(function (response) {
+            state = response.status;
+            return response;
+        })
+        .then(function (json) {
+
+            switch (state) {
+                case 201: alert("Le travail a été ajouté"); // Si ok on affiche un message 
+                    FillModalWorks(); // On vide la modale works pour une prochaine nouvelle saisie
+                    main(); // On rappel main qui va tout rafraîchir
+                    break;
+
+                case 400: alert("Mauvaise requête");
+                    break;
+
+                case 401: alert("Vous n'êtes pas autorisé à éxecuter cette fonction");
+                    break;
+
+                case 500: alert("Erreur serveur");
+            }
+        })
 }
 
 // Fermer la modale editwork et ferme également la modale photogallery
@@ -343,7 +476,15 @@ document.querySelectorAll('.open-modal').forEach(a => {
 
 // Arrêter la propagation de la modale
 function propagation(e) {
-    e.stopPropagation()
+    e.stopPropagation();
+
+    picture = document.getElementById('picture');
+    title = document.getElementById('title-project');
+    category = document.getElementById('category-project');
+    if ((e.target == picture) || (e.target == title) || (e.target == category)) {
+        control_saisie()
+    }
+
 };
 
 // Suppression d'un travail
@@ -385,4 +526,38 @@ async function delete_work(e) {
                     break;
             }
         })
+}
+
+// Permet de selectionner une image sur l'ordinateur
+function selectPicture() {
+    let inputFile = document.getElementById('picture');
+    console.log(inputFile.value);
+    let fileName = inputFile.files.item(0).name;
+
+    // On affiche l'image 
+    let pictureFile = document.getElementById('picture-file');
+    pictureFile.setAttribute('src', 'assets/images/' + fileName);
+    pictureFile.style['width'] = '129px';
+    pictureFile.style['height'] = '100%';
+    pictureFile.style['marginTop'] = '0';
+    let pictureButton = document.querySelector('.add-picture-button');
+    let pInfo = document.getElementById('picture-info');
+    pInfo.hidden = true;
+    pictureButton.hidden = true;
+}
+
+// Ajout d'un projet
+function addWorks(e) {
+    e.preventDefault();
+
+    // Récupération du formulaire que l'on stocke dans une variable
+    const formAddWorks = document.querySelector('#form-add-work');
+    let input = document.createElement('input');
+    input.setAttribute('type', 'file');
+    input.setAttribute('id', 'picture');
+    input.setAttribute('onchange', 'selectPicture()');
+    input.hidden = true;
+    formAddWorks.appendChild(input);
+    input.click();
+
 }
