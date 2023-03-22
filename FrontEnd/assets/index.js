@@ -169,7 +169,7 @@ async function list_category() {
                 // On rempli la combobox avec les données du json list des catégories
                 let combo_cat = document.querySelector('#category-project');
 
-                // on efface ce qui est en dur dans la liste combobox
+                // On efface ce qui est en dur dans la liste combobox
                 dropElement(combo_cat);
 
                 if (combo_cat) {
@@ -531,7 +531,7 @@ async function delete_work(e) {
 // Permet de selectionner une image sur l'ordinateur
 function selectPicture() {
     let inputFile = document.getElementById('picture');
-    console.log(inputFile.value);
+    //console.log(inputFile.value);
     let fileName = inputFile.files.item(0).name;
 
     // On affiche l'image 
@@ -552,12 +552,11 @@ function addWorks(e) {
 
     // Récupération du formulaire que l'on stocke dans une variable
     const formAddWorks = document.querySelector('#form-add-work');
-    let input = document.createElement('input');
-    input.setAttribute('type', 'file');
-    input.setAttribute('id', 'picture');
-    input.setAttribute('onchange', 'selectPicture()');
-    input.hidden = true;
-    formAddWorks.appendChild(input);
-    input.click();
+
+    const inputFile = document.querySelector('#picture');
+
+    inputFile.addEventListener('change', selectPicture)
+
+    inputFile.click();
 
 }

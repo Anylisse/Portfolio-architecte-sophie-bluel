@@ -233,6 +233,7 @@ li a img {
 
 #portfolio h2 {
 	text-align: center;
+	margin-top: 1em;
 	margin-bottom: 1em;
 }
 
@@ -241,8 +242,8 @@ li a img {
 	height: 37px;
 	display: flex;
 	justify-content: center;
-	margin-top: 20px;
-	margin-bottom: 50px;
+	margin-top: 15px;
+	margin-bottom: 30px;
 }
 
 .filters li {
@@ -457,7 +458,7 @@ input[type="submit"] {
 }
 
 .project-modification {
-	margin-top: 10px;
+	margin-top: 40px;
 	margin-left: 30px;
 }
 
@@ -500,11 +501,15 @@ input[type="submit"] {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: flex-start;
-	width: 72%;
 	border-bottom: 1px solid #B3B3B3;
-	margin-left: 90px;
+	margin-right: 88px;
+	margin-left: 88px;
 	margin-bottom: 40px;
 	padding-bottom: 25px;
+}
+
+.modal-gallery figure {
+	position: relative;
 }
 
 .picture {
