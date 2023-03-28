@@ -71,6 +71,8 @@ async function list_works(category_id) {
                         let img = document.createElement('img');
                         img.setAttribute('src', json[i].imageUrl);
                         img.setAttribute('alt', json[i].title);
+                        // Permet d'afficher l'image sur n'importe quel navigateur
+                        img.setAttribute('crossorigin', 'anonymous');
                         figure.appendChild(img);
 
                         // On crée le caption pour cette figure
@@ -92,6 +94,7 @@ async function list_works(category_id) {
                         imgM.setAttribute('src', json[i].imageUrl);
                         imgM.setAttribute('alt', json[i].title);
                         imgM.setAttribute('class', 'picture');
+                        imgM.setAttribute('crossorigin', 'anonymous');
                         figurePicture.appendChild(imgM);
 
                         let a = document.createElement('a');
@@ -126,6 +129,10 @@ async function list_works(category_id) {
                 }
             }
         })
+        .catch((error) => {
+            console.log(error);
+            portfolio.innerHTML("<p>Un problème technique est en cours, veuillez réessayer ultérieurement</p>")
+        });
 }
 
 // Fonction qui permet de charger les catégories à partir du Backend
@@ -183,6 +190,9 @@ async function list_category() {
                 }
             }
         })
+        .catch((error) => {
+            console.log(error);            
+        });
 }
 
 // Cette fonction met en blanc tous les boutons sauf le bouton sur lequel on a cliqué
@@ -333,8 +343,11 @@ const openModal2 = function (e) {
     pictureButton.addEventListener('click', addWorks);
     const pictureImg = document.getElementById('picture-file');
     pictureImg.addEventListener('click', addWorks);
-    const buttonValidate = document.getElementById('style-input-modal');
-    buttonValidate.addEventListener('click', sendWorks);
+    const formAddWork = document.getElementById('form-add-work');
+    formAddWork.addEventListener('submit', sendWorks);
+
+    //const buttonValidate = document.getElementById('style-input-modal');
+    //buttonValidate.addEventListener('click', sendWorks);
 }
 
 /* Cette fonction permet de vérifier que tous les champs saisis dans la modale saisie d'un travail 
