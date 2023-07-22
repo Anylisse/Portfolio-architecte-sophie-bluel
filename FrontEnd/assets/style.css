@@ -3,7 +3,7 @@
    License: none (public domain)
 */
 
-html,
+/*html,
 body,
 div,
 span,
@@ -92,10 +92,10 @@ video {
 	vertical-align: baseline;
 	text-decoration: none;
 	color: black;
-}
+}*/
 
 /* HTML5 display-role reset for older browsers */
-article,
+/*article,
 aside,
 details,
 figcaption,
@@ -107,7 +107,7 @@ menu,
 nav,
 section {
 	display: block;
-}
+}*/
 
 body {
 	line-height: 1;
@@ -137,12 +137,23 @@ table {
 }
 
 /** end reset css **/
-body {
-	max-width: 1140px;
-	margin: auto;
+
+* {
+	box-sizing: border-box;
 	font-family: 'Work Sans';
-	font-size: 14px;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	display: grid;
+	margin: 0 auto;
 	background-color: #FFFEF8;
+}
+
+main {
+	max-width: 1440px;
+	margin: auto;
 }
 
 header {
@@ -161,7 +172,8 @@ h1 {
 	font-family: 'Syne';
 	font-size: 22px;
 	font-weight: 800;
-	color: #B1663C
+	color: #B1663C;
+	margin-left: 20px;
 }
 
 h1>span {
@@ -192,6 +204,11 @@ nav li {
 	font-size: 1.2em;
 }
 
+nav ul li a {
+	color: black;
+	text-decoration: none;
+}
+
 li a:hover {
 	color: #B1663C;
 }
@@ -212,23 +229,26 @@ li a img {
 }
 
 #introduction img {
-	display: block;
+	display: flex;
+	justify-content: center;
 	margin: auto;
 	width: 80%;
 }
 
 #introduction article {
 	flex: 1;
-	height: 192px;
 	line-height: 16px;
+	margin-right: 30px;
 }
 
 #introduction h2 {
-	margin-bottom: 1em;
+	text-align: center;
+	margin-bottom: 30px;
 }
 
 #introduction p {
 	margin-bottom: 0.5em;
+	text-align: justify;
 }
 
 #portfolio h2 {
@@ -310,7 +330,7 @@ li a img {
 #contact form {
 	text-align: left;
 	margin-top: 30px;
-	margin-left: 90px;
+	margin-left: 120px;
 	margin-right: 90px;
 	display: flex;
 	flex-direction: column;
@@ -341,7 +361,7 @@ input[type="submit"] {
 	font-weight: 700;
 	color: white;
 	background-color: #1D6154;
-	margin: 2em auto;
+	margin: 30px 100px;
 	width: 179px;
 	text-align: center;
 	border-radius: 60px;
@@ -351,7 +371,7 @@ input[type="submit"] {
 footer nav ul {
 	display: flex;
 	justify-content: flex-end;
-	margin: 2em;
+	margin: 10px;
 }
 
 footer a {
@@ -360,9 +380,8 @@ footer a {
 
 /* Mise en forme du login */
 #login {
-	width: 50%;
+	width: 100%;
 	text-align: center;
-	margin: auto;
 }
 
 #login form {
@@ -396,12 +415,12 @@ input[type="submit"] {
 #login a {
 	line-height: 16px;
 	text-decoration-line: underline;
+	color: black;
 }
 
 #footer {
-	position: absolute;
 	bottom: 0;
-	width: 90%;
+	width: 100%;
 }
 
 /** Barre mode édition et publication des changements **/
@@ -633,4 +652,66 @@ input[type="submit"] {
 	color: #6C6C6C;
 	margin-top: 10px;
 	margin-bottom: 20px;
+}
+
+@media screen and (max-width: 767px) {
+	header {
+		margin-left: 15px;
+	}
+
+	h1 {
+		font-size: 18px;
+		text-align: center;
+	}
+
+	h1>span {
+		font-size: 8px;
+		line-height: 10px;
+		margin-top: 5px;
+	}
+
+	nav ul {
+		margin-left: 80px;
+	}
+
+	nav li {
+		font-size: 16px;
+	}
+
+	h2 {
+		font-size: 22px;
+	}
+
+	#introduction {
+		display: block;
+		margin-top: 50px;
+		margin-left: 50px;
+		margin-right: 50px;
+	}
+
+	#introduction article {
+		margin-top: 40px;
+	}
+
+	#introduction p {
+		margin-left: 20px;
+	}
+
+	#contact {
+		width: 80%;
+	}
+}
+
+@media screen and (max-width: 320px) {
+	#contact {
+		width: 100%;
+	}
+
+	#contact form {
+		margin-right: 120px;
+	}
+
+	footer {
+		margin-top: 200px;
+	}
 }
