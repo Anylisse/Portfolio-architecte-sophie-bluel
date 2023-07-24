@@ -166,6 +166,12 @@ section {
 	margin: 50px 0
 }
 
+section,
+#portfolio {
+	margin-left: 50px;
+	margin-right: 50px;
+}
+
 h1 {
 	display: flex;
 	flex-direction: column;
@@ -709,9 +715,14 @@ input[type="submit"] {
 
 	#contact form {
 		margin-right: 120px;
+		margin-left: 140px;
 	}
 
 	footer {
 		margin-top: 200px;
+	}
+
+	.filters {
+		align-items: baseline;
 	}
 }
