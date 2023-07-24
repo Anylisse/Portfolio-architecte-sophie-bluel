@@ -225,9 +225,8 @@ li a img {
 }
 
 #introduction {
-	display: flex;
-	align-items: center;
-	margin-top: 120px;
+	display: block;
+	margin-top: 50px;
 }
 
 #introduction figure {
@@ -238,17 +237,19 @@ li a img {
 	display: flex;
 	justify-content: center;
 	margin: auto;
-	width: 80%;
+	width: 50%;
 }
 
 #introduction article {
 	flex: 1;
 	line-height: 16px;
-	margin-right: 30px;
+	margin-left: 50px;
+	margin-right: 50px;
 }
 
 #introduction h2 {
 	text-align: center;
+	margin-top: 30px;
 	margin-bottom: 30px;
 }
 
@@ -669,14 +670,16 @@ input[type="submit"] {
 
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 766px) {
 	header {
-		margin-left: 15px;
+		display: block;
+
 	}
 
 	h1 {
 		font-size: 18px;
 		text-align: center;
+		margin-right: 20px;
 	}
 
 	h1>span {
@@ -686,8 +689,8 @@ input[type="submit"] {
 	}
 
 	nav ul {
-		margin-left: 80px;
-		margin-right: 20px;
+		margin-left: 220px;
+		margin-top: 20px;
 	}
 
 	nav li {
@@ -711,6 +714,7 @@ input[type="submit"] {
 
 	#introduction p {
 		margin-left: 20px;
+		margin-right: 20px;
 	}
 
 	#contact {
@@ -719,14 +723,43 @@ input[type="submit"] {
 
 	#contact form {
 		display: flex;
-		margin-left: 90px;
-		margin-right: 90px;
+		margin-left: 200px;
+		margin-right: 200px;
 	}
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 764px) {
+	header {
+		display: block;
+		margin-left: 0;
+	}
+
+	h1 {
+		font-size: 16px;
+	}
+
+	nav li {
+		font-size: 14px;
+	}
+
+	h2 {
+		font-size: 18px;
+	}
+
+	#introduction {
+		display: block;
+		margin-top: 30px;
+		margin-left: 10px;
+		margin-right: 10px;
+	}
+
 	#contact {
 		width: 100%;
+	}
+
+	#contact form {
+		display: flex;
+		flex-direction: column;
 	}
 
 	footer {
