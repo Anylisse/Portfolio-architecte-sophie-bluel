@@ -383,17 +383,18 @@ footer a {
 
 /* Mise en forme du login */
 #login {
-	width: 100%;
+	display: flex;
+	flex-direction: column;
+	width: 50%;
 	text-align: center;
+	margin: auto;
 }
 
 #login form {
 	display: flex;
 	flex-direction: column;
 	text-align: left;
-	margin-top: 15px;
-	margin-right: 90px;
-	margin-left: 90px;
+	margin: auto;
 }
 
 #login label {
@@ -422,8 +423,8 @@ input[type="submit"] {
 }
 
 #footer {
-	bottom: 0;
 	width: 100%;
+	margin-top: 600px;
 }
 
 /** Barre mode édition et publication des changements **/
@@ -662,6 +663,10 @@ input[type="submit"] {
 		margin: auto;
 	}
 
+	#login form {
+		margin: auto;
+	}
+
 }
 
 @media screen and (max-width: 766px) {
@@ -706,6 +711,14 @@ input[type="submit"] {
 
 	#contact form {
 		margin: auto
+	}
+
+	#login {
+		width: 100%;
+	}
+
+	#login form {
+		margin: auto;
 	}
 }
 
@@ -755,6 +768,14 @@ input[type="submit"] {
 	.filters {
 		align-items: baseline;
 	}
+
+	#login {
+		width: 100%;
+	}
+
+	#login form {
+		margin: auto;
+	}
 }
 
 @media screen and (max-width: 425px) {
@@ -795,5 +816,29 @@ input[type="submit"] {
 
 	input[type="submit"] {
 		margin: 30px 140px 0 60px;
+	}
+
+	#login {
+		width: 85%;
+		margin-top: 100px;
+	}
+
+	#login form {
+		width: 65%;
+		margin: auto;
+	}
+
+	#login input[type="email"],
+	[type="password"] {
+		width: 240px;
+	}
+
+	#login a {
+		margin-top: 80px;
+	}
+
+	#login input[type="submit"] {
+		width: 60%;
+		margin: 50px 140px 0 50px;
 	}
 }
