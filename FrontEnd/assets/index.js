@@ -5,7 +5,8 @@ let modalGallery = document.querySelector('.modal-gallery');
 let portfolio = document.querySelector('.gallery');
 
 // Paramètres d'appel à l'API
-let server_url = "http://localhost:5678/api/";
+//let server_url = "http://localhost:5678/api/";
+let server_url = "https://portfolio-sophie-bluel-backend.onrender.com/api/";
 let state = 0;
 let request_options = {
     method: "GET",

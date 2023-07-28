@@ -1,3 +1,5 @@
+let server_url = "https://portfolio-sophie-bluel-backend.onrender.com/api/";
+
 // Récupération des informations de connexion
 async function logIn() {
     const userEmail = document.querySelector("#email").value;
@@ -10,7 +12,7 @@ async function logIn() {
 
     const userJSON = JSON.stringify(user);
 
-    const response = await fetch('http://localhost:5678/api/users/login', {
+    const response = await fetch(server_url + 'users/login', {
         method: "POST",
         headers: {
             'content-type': 'application/json'
