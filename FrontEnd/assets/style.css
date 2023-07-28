@@ -824,13 +824,12 @@ input[type="submit"] {
 	}
 
 	#login form {
-		width: 65%;
 		margin: auto;
 	}
 
 	#login input[type="email"],
 	[type="password"] {
-		width: 240px;
+		width: 290px;
 	}
 
 	#login a {
@@ -839,6 +838,6 @@ input[type="submit"] {
 
 	#login input[type="submit"] {
 		width: 60%;
-		margin: 50px 140px 0 50px;
+		margin: 50px 140px 0 55px;
 	}
 }
