@@ -4,7 +4,7 @@ info:
   description: API Backend for Architect Website
   version: 1.0.0
 servers:
-  - url: http://localhost:5678/api/
+  - url: https://portfolio-sophie-bluel-backend.onrender.com/api/
 paths:
   /users/login:
     post:
@@ -83,7 +83,7 @@ paths:
                       example: "Abajour Tahina"
                     imageUrl:
                       type: string
-                      example: "http://localhost:5678/images/abajour-tahina1651286843956.png"
+                      example: "https://portfolio-sophie-bluel-backend.onrender.com/images/abajour-tahina1651286843956.png"
                     categoryId:
                       type: integer
                       format: int64
