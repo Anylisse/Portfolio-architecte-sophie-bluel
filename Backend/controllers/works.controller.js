@@ -8,7 +8,7 @@ exports.findAll = async (req, res) =>  {
 
 exports.create = async (req, res) => {
 	//const host = req.get('host');
-	const host = "https://portfolio-sophie-bluel-backend.onrender.com";
+	const host = "portfolio-sophie-bluel-backend.onrender.com";
 	const title = req.body.title;
 	const categoryId = req.body.category;
 	const userId = req.auth.userId;
